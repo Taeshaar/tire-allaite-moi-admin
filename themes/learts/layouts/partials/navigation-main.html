@@ -1,0 +1,8 @@
+{{ if .Site.Menus.main }}
+<ul>
+    {{ range .Site.Menus.main }}
+        <li><a href="{{ .URL }}" title="{{ i18n "pageTitle" . }}"><span class="menu-text">{{ .Name }}</span></a>
+        </li>
+    {{ end }}
+</ul>
+{{ end }}

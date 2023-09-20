@@ -1,0 +1,30 @@
+{{ define "banner" }}
+  {{ partial "page-banner.html" . }}
+{{ end }}
+
+{{ define "main" }}
+    <!-- Blog Section Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row g-0 learts-mb-n40">
+
+                {{ range .Paginator.Pages }}
+                    <div class="col-12 border-bottom learts-pb-40 learts-mb-40">
+                        {{ .Render "summary" }}
+                    </div>
+                {{ end }}
+
+            </div>
+
+            <!-- Je suppose que ce machin c'est la pagination -->
+            {{ template "_internal/pagination.html" . }}
+            <div class="row learts-mt-50">
+                <div class="col text-center">
+                    <a href="#" class="btn btn-dark btn-outline-hover-dark">Load More</a>
+                </div>
+            </div>
+            <!-- fin pagination ? -->
+
+        </div>
+    </div>
+{{ end }}

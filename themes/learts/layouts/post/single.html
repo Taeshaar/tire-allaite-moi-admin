@@ -1,0 +1,239 @@
+{{ define "banner" }}
+  {{ partial "post-banner.html" . }}
+{{ end }}
+
+{{ define "noop" }}
+  {{ $section := .Site.GetPage "section" .Section }}
+    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links {{ $.Param "text_color" | default "mid-gray" }} {{ cond (eq $.Site.Language.LanguageDirection "rtl") "pl4-l" "pr4-l" }} w-two-thirds-l">
+      {{- .Content -}}
+      {{- partial "tags.html" . -}}
+      <div class="mt6 instapaper_ignoref">
+      {{ if .Site.DisqusShortname }}
+        {{ template "_internal/disqus.html" . }}
+      {{ end }}
+      {{ if .Site.Params.commentoEnable }}
+        {{- partial "commento.html" . -}}
+      {{ end }}
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+      {{- partial "menu-contextual.html" . -}}
+    </aside>
+
+  </article>
+{{ end }}
+
+{{ define "main" }}
+{{ $featured_image := partial "func/GetFeaturedImage.html" . }}
+{{ $section := .Site.GetPage "section" .Section }}
+<div class="section section-padding">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="single-blog">
+                    {{/*
+                    <ul class="category justify-content-center">
+                        <li><a href="#">Decor</a></li>
+                        <li><a href="#">Kitchen</a></li>
+                    </ul>
+                    */}}
+                    <h2 class="title text-center mb-5">{{- .Title -}}</h2>
+
+                    {{ if $featured_image }}
+                        <div class="image mb-5">
+                            <a href="{{ .RelPermalink }}"><img src="{{ $featured_image }}" alt="image from {{ .Title }}"></a>
+                        </div>
+                    {{ end }}
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 col-12 mx-auto">
+                            <div class="content">
+                                <ul class="meta justify-content-center">
+                                    <li><i class="far fa-user"></i> By <a href="#">{{ .Site.Params.author }}</a></li>
+                                    <li><i class="far fa-calendar"></i><a href="#">{{ .Date | time.Format (default "January 2, 2006" .Site.Params.date_format) }}</a></li>
+                                    {{/*<li><i class="far fa-comment"></i><a href="#">4 Comments</a></li>*/}}
+                                    {{/*<li><i class="far fa-eye"></i> 201 views</li>*/}}
+                                    <li> - {{ i18n "readingTime" .ReadingTime }} </li>
+                                    <li> - {{ i18n "wordCoune" .WordCount }} </li>
+                                </ul>
+                                <div class="desc">
+                                    {{- .Content -}}
+                                </div>
+                            </div>
+                            <div class="blog-footer row g-0 justify-content-between align-items-center">
+                                <div class="col-auto">
+                                    {{- partial "tags.html" . -}}
+                                </div>
+
+                                {{- partial "social-share.html" . -}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xl-9 col-lg-10 col-12 mx-auto">
+
+                        <!-- Le petit laïus sur l'auteur -->
+                        {{/*
+                        <div class="blog-author">
+                            <div class="thumbnail">
+                                <img src="assets/images/comment/comment-1.webp" alt="">
+                                <div class="social">
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <a href="#" class="name">Owen Christ</a>
+                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboruLorem ipsum dolor sit amet datat non proident</p>
+                            </div>
+                        </div>
+                        */}}
+
+                        <!-- Articles en relations. A faire dans un second temps -->
+                        {{/*
+                        <div class="related-blog">
+                            <div class="block-title pb-0 border-bottom-0">
+                                <h2 class="title">Related Blog</h2>
+                            </div>
+                            <div class="row learts-mb-n40">
+                                <div class="col-md-6 col-12 learts-mb-40">
+                                    <div class="blog">
+                                        <div class="image">
+                                            <a href="blog-details-right-sidebar.html"><img src="assets/images/blog/s370/blog-2.webp" alt="Blog Image"></a>
+                                        </div>
+                                        <div class="content">
+                                            <ul class="meta">
+                                                <li><i class="far fa-calendar"></i><a href="#">January 22, 2020</a></li>
+                                                <li><i class="far fa-eye"></i> 158 views</li>
+                                            </ul>
+                                            <h5 class="title mb-0"><a href="blog-details-right-sidebar.html">Tile Tray with Brass Handles</a></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12 learts-mb-40">
+                                    <div class="blog">
+                                        <div class="image">
+                                            <a href="blog-details-right-sidebar.html"><img src="assets/images/blog/s370/blog-3.webp" alt="Blog Image"></a>
+                                        </div>
+                                        <div class="content">
+                                            <ul class="meta">
+                                                <li><i class="far fa-calendar"></i><a href="#">January 22, 2020</a></li>
+                                                <li><i class="far fa-eye"></i> 119 views</li>
+                                            </ul>
+                                            <h5 class="title mb-0"><a href="blog-details-right-sidebar.html">Dining Table Chairs Makeover</a></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        */}}
+
+                        <!-- Les commentaires -->
+                        {{ if .Site.Params.commentoEnable }}
+                            {{- partial "commento.html" . -}}
+                        {{ end }}
+                        {{/*
+                        <div class="Comments-wrapper">
+                            <div class="block-title pb-0 border-bottom-0">
+                                <h2 class="title">Comments <span class="text-muted">(4)</span></h2>
+                            </div>
+                            <ul class="comment-list">
+                                <li>
+                                    <div class="comment">
+                                        <div class="thumbnail">
+                                            <img src="assets/images/comment/comment-2.webp" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="name">Scott James</h4>
+                                            <p>Thanks for always keeping your WordPress themes up to date. Your level of support and dedication is second to none.</p>
+                                            <div class="actions">
+                                                <span class="date">April 22, 2020 at 2:10 am</span>
+                                                <a class="reply-link" href="#">Reply</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="child-comment">
+                                        <li>
+                                            <div class="comment">
+                                                <div class="thumbnail">
+                                                    <img src="assets/images/comment/comment-3.webp" alt="">
+                                                </div>
+                                                <div class="content">
+                                                    <h4 class="name">Edna Watson</h4>
+                                                    <p>Thanks for always keeping your WordPress themes up to date. Your level of support and dedication is second to none.</p>
+                                                    <div class="actions">
+                                                        <span class="date">April 22, 2020 at 2:10 am</span>
+                                                        <a class="reply-link" href="#">Reply</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="comment">
+                                        <div class="thumbnail">
+                                            <img src="assets/images/comment/comment-4.webp" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="name">Gerhard</h4>
+                                            <p>Thanks for always keeping your WordPress themes up to date. Your level of support and dedication is second to none.</p>
+                                            <div class="actions">
+                                                <span class="date">April 22, 2020 at 2:10 am</span>
+                                                <a class="reply-link" href="#">Reply</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="comment">
+                                        <div class="thumbnail">
+                                            <img src="assets/images/comment/comment-1.webp" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="name">Owen Christ</h4>
+                                            <p>Thank you very much!</p>
+                                            <div class="actions">
+                                                <span class="date">April 22, 2020 at 2:10 am</span>
+                                                <a class="reply-link" href="#">Reply</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="block-title pb-0 border-bottom-0">
+                                <h2 class="title">Leave your thought here</h2>
+                            </div>
+                            <div class="comment-form">
+                                <form action="#">
+                                    <div class="row learts-mb-n20">
+                                        <div class="col-md-6 col-12 learts-mb-20">
+                                            <input type="text" placeholder="Your name (*)">
+                                        </div>
+                                        <div class="col-md-6 col-12 learts-mb-20">
+                                            <input type="text" placeholder="Mail (*)">
+                                        </div>
+                                        <div class="col-12 learts-mb-20">
+                                            <textarea placeholder="Message"></textarea>
+                                        </div>
+                                        <div class="col-12 text-center learts-mb-20 learts-mt-20">
+                                            <button class="btn btn-dark btn-outline-hover-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        */}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
