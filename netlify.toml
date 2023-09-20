@@ -26,5 +26,10 @@
 
 [[redirects]]
   from   = "/"
-  to     = "/post/"
+  to     = "/articles/"
+  status = 200
+
+[[redirects]]
+  from   = ""
+  to     = "/articles/"
   status = 200
