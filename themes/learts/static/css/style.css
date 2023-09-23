@@ -7980,6 +7980,7 @@ body.offcanvas-open .sticky-header {
 .section-title2.text-center p {
   margin-right: auto;
   margin-left: auto;
+  text-align: justify;
 }
 @media only screen and (max-width: 767px) {
   .section-title2 {
@@ -8141,6 +8142,27 @@ body.offcanvas-open .sticky-header {
 }
 @media only screen and (max-width: 479px) {
   .page-title-section {
+    padding: 50px 0;
+  }
+}
+
+.home-title-section {
+  padding: 130px 0;
+  height: 875px;
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px) {
+  .home-title-section {
+    padding: 80px 0;
+    height: 550px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .home-title-section {
+    padding: 60px 0;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .home-title-section {
     padding: 50px 0;
   }
 }

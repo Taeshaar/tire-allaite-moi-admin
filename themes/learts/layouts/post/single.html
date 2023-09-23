@@ -51,11 +51,11 @@
                             <div class="content">
                                 <ul class="meta justify-content-center">
                                     <li><i class="far fa-user"></i> By <a href="#">{{ .Site.Params.author }}</a></li>
-                                    <li><i class="far fa-calendar"></i><a href="#">{{ .Date | time.Format (default "January 2, 2006" .Site.Params.date_format) }}</a></li>
+                                    <li><i class="far fa-calendar"></i><a href="#">{{ .Date | time.Format (default "2 January 2006" .Site.Params.date_format) }}</a></li>
                                     {{/*<li><i class="far fa-comment"></i><a href="#">4 Comments</a></li>*/}}
                                     {{/*<li><i class="far fa-eye"></i> 201 views</li>*/}}
-                                    <li> - {{ i18n "readingTime" .ReadingTime }} </li>
-                                    <li> - {{ i18n "wordCoune" .WordCount }} </li>
+                                    <li> - {{ i18n "readingTime" (countwords .Content) }} </li>
+                                    <li> - {{ i18n "wordCoune" (math.Floor (mul (div (countwords .Content) 220.0) 60)) }} </li>
                                 </ul>
                                 <div class="desc">
                                     {{- .Content -}}

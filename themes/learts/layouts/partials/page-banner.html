@@ -1,4 +1,6 @@
-<div class="page-title-section section" data-bg-image="/images/bg/page-title-1.webp">
+<!-- Page Title/Header Start -->
+{{ $featured_image := partial "func/GetFeaturedImage.html" . }}
+<div class="page-title-section section" data-bg-image="{{ $featured_image | default "/images/page-banner.png" }}">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -15,3 +17,4 @@
         </div>
     </div>
 </div>
+<!-- Page Title/Header End -->

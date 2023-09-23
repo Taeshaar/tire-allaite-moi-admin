@@ -14,7 +14,7 @@
                 <ul class="meta">
                     {{ if .Date }}
                         <li><i class="far fa-calendar"></i><a href="#">
-                        {{ .Date | time.Format (default "January 2, 2006" .Site.Params.date_format) }}
+                        {{ .Date | time.Format (default "2 January 2006" .Site.Params.date_format) }}
                         </a></li>
                     {{ end }}
 

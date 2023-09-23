@@ -1,14 +1,15 @@
 <!-- Page Title/Header Start -->
-<div class="page-title-section section" data-bg-image="/images/bg/page-title-1.webp">
+{{ $featured_image := partial "func/GetFeaturedImage.html" . }}
+<div class="page-title-section section" data-bg-image="{{ $featured_image | default "/images/page-banner.png" }}}}">
     <div class="container">
         <div class="row">
             <div class="col">
 
                 <div class="page-title">
-                    <h1 class="title">Blog</h1>
+                    <h1 class="title">Articles</h1>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Accueil</a></li>
-                        <li class="breadcrumb-item"><a href="/post">Articles</a></li>
+                        <li class="breadcrumb-item"><a href="/articles/">Articles</a></li>
                         <li class="breadcrumb-item active">{{ .Title | default .Site.Title }}</li>
                     </ul>
                 </div>

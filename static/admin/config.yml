@@ -5,6 +5,7 @@ backend:
 publish_mode: editorial_workflow # beta editorial mode, for drafts and reviewing statuses
 media_folder: "static/images/uploads" # Media files will be stored in the repo under static/images/uploads
 public_folder: "/images/uploads" # The src attribute for uploaded media will begin with /images/uploads
+logo_url: /images/logo-big.png
 
 collections:
   - name: "articles" # Used in routes, e.g., /admin/collections/blog
@@ -16,7 +17,18 @@ collections:
     fields: # The fields for each document, usually in front matter
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Titre", name: "title", widget: "string"}
-      - {label: "Date de publication", name: "pulished_at", widget: "datetime"}
-      - {label: "Image d'illustration", name: "thumbnail", widget: "image"}
-      - {label: "Apperçu", name: "excerpt", widget: "text"}
+      - {label: "Date de publication", name: "date", widget: "datetime"}
+      - {label: "Image d'illustration", name: "featured_image", widget: "image"}
+      - {label: "Apperçu", name: "summary", widget: "text"}
+      - {label: "Contenu", name: "body", widget: "markdown"}
+
+  - name: "pages" # Used in routes, e.g., /admin/collections/blog
+    label: "Pages" # Used in the UI
+    folder: "content/page" # The path to the folder where the documents are stored
+    create: false # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Layout", name: "layout", widget: "hidden", default: "page"}
+      - {label: "Titre", name: "title", widget: "string"}
+      - {label: "Banière d'illustration", name: "featured_image", widget: "image"}
       - {label: "Contenu", name: "body", widget: "markdown"}

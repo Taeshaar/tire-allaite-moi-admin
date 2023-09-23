@@ -1,2 +1,151 @@
+{{ define "banner" }}
+    <!-- Parallax Banner Start -->
+    <div class="parallax-banner parallax-banner-4" data-scrollax-parent="true">
+        <div class="parallax-image" data-scrollax="properties: { translateY: '30%' }"><img src="/images/homepage-banner.png" alt="parallax-4" /></div>
+        <div class="content">
+            <span class="sub-title">Text blablabla</span>
+            <h2 class="title">Tire-allaite moi</h2>
+            <a href="/articles">Lire tout nos articles</a>
+        </div>
+    </div>
+    <!-- Parallax Banner End -->
+{{ end }}
+
 {{ define "main" }}
+    <!-- Sale Banner Section Start -->
+    <div class="section section-padding" data-bg-image="assets/images/bg/home-2.webp">
+        <div class="container">
+            <div class="row learts-mb-n30">
+
+                <div class="col-lg-5 col-12 ms-auto align-self-center learts-mb-30">
+                    <div class="about-us">
+                        <div class="inner">
+                            <img class="logo " src="/images/tam-logo.png" alt="Site Logo">
+                            <h2 class="title">Conseils et matteriel</h2>
+                            <span class="special-title">Tire-allaite moi</span>
+                            <p>Parce que l'allaitement et le tire-allaitement sont parfoit compliqué, blah blah</p>
+                            <a href="/articles" class="link">Lire tout nos articles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-6 col-12 ms-auto learts-mb-30">
+                    <div class="category-banner2">
+                        <a href="shop.html" class="inner">
+                            <div class="image"><img src="/images/uploads/cover-taille-teterelles.png" alt=""></div>
+                            <div class="content">
+                                <h3 class="title">Choisir sa taille de téterelles<span class="number">Tout-public</span></h3>
+                            </div>
+                        </a>
+                        <span class="banner-desc right">ARTICLE</span>
+                    </div>
+                </div>
+                {{/*
+                <div class="col-lg-5 col-md-6 col-12 learts-mb-30">
+                    <div class="category-banner2">
+                        <a href="shop.html" class="inner">
+                            <div class="image"><img src="assets/images/banner/category/banner-s2-2.webp" alt=""></div>
+                            <div class="content">
+                                <h3 class="title">Kniting & Sewing<span class="number">4 items</span></h3>
+                            </div>
+                        </a>
+                        <span class="banner-desc right">SALE UP TO 40%</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-6 col-12 ms-auto learts-mb-30">
+                    <div class="section-padding pb-0 d-none d-lg-block"></div>
+                    <div class="category-banner2">
+                        <a href="shop.html" class="inner">
+                            <div class="image"><img src="assets/images/banner/category/banner-s2-3.webp" alt=""></div>
+                            <div class="content">
+                                <h3 class="title">Gift ideas<span class="number">16 items</span></h3>
+                            </div>
+                        </a>
+                        <span class="banner-desc right">BEST SELLERS</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-6 col-12 ms-auto learts-mb-30">
+                    <div class="section learts-pt-40 d-none d-lg-block"></div>
+                    <div class="category-banner2">
+                        <a href="shop.html" class="inner">
+                            <div class="image"><img src="assets/images/banner/category/banner-s2-4.webp" alt=""></div>
+                            <div class="content">
+                                <h3 class="title">Home Decor<span class="number">16 items</span></h3>
+                            </div>
+                        </a>
+                        <span class="banner-desc left">BEST SELLERS</span>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center col-lg-5 col-12 ms-auto learts-mb-30">
+                    <div class="sale-banner3">
+                        <span class="special-title">Spring sale</span>
+                        <h2 class="title" data-text="ss – 18">Sale up to 10% all</h2>
+                        <a href="#" class="link">ONLINE STORE</a>
+                    </div>
+                </div>
+                */}}
+            </div>
+        </div>
+    </div>
+    <!-- Sale Banner Section End -->
+
+{{ end }}
+
+{{ define "noop" }}
+ <article class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy {{ $.Param "text_color" | default "mid-gray" }}">
+    {{ .Content }}
+  </article>
+  {{/* Define a section to pull recent posts from. For Hugo 0.20 this will default to the section with the most number of pages. */}}
+  {{ $mainSections := .Site.Params.mainSections | default (slice "post") }}
+  {{/* Create a variable with that section to use in multiple places. */}}
+  {{ $section := where .Site.RegularPages "Section" "in" $mainSections }}
+  {{/* Check to see if the section is defined for ranging through it */}}
+  {{ $section_count := len $section }}
+  {{ if ge $section_count 1 }}
+    {{/* Derive the section name  */}}
+    {{ $section_name := index (.Site.Params.mainSections) 0 }}
+
+    <div class="pa3 pa4-ns w-100 w-70-ns center">
+      {{/* Use $section_name to get the section title. Use "with" to only show it if it exists */}}
+       {{ with .Site.GetPage "section" $section_name }}
+          <h1 class="flex-none">
+            {{ $.Param "recent_copy" | default (i18n "recentTitle" .) }}
+          </h1>
+        {{ end }}
+
+      {{ $n_posts := $.Param "recent_posts_number" | default 3 }}
+
+      <section class="w-100 mw8">
+        {{/* Range through the first $n_posts items of the section */}}
+        {{ range (first $n_posts $section) }}
+          <div class="relative w-100 mb4">
+            {{ .Render "summary-with-image" }}
+          </div>
+        {{ end }}
+      </section>
+
+      {{ if ge $section_count (add $n_posts 1) }}
+      <section class="w-100">
+        <h1 class="f3">{{ i18n "more" }}</h1>
+        {{/* Now, range through the next four after the initial $n_posts items. Nest the requirements, "after" then "first" on the outside */}}
+        {{ range (first 4 (after $n_posts $section))  }}
+          <h2 class="f5 fw4 mb4 dib {{ cond (eq $.Site.Language.LanguageDirection "rtl") "ml3" "mr3" }}">
+            <a href="{{ .RelPermalink }}" class="link black dim">
+              {{ .Title }}
+            </a>
+          </h2>
+        {{ end }}
+
+        {{/* As above, Use $section_name to get the section title, and URL. Use "with" to only show it if it exists */}}
+        {{ with .Site.GetPage "section" $section_name }}
+          <a href="{{ .RelPermalink }}" class="link db f6 pa2 br3 bg-mid-gray white dim w4 tc">{{ i18n "allTitle" . }}</a>
+        {{ end }}
+        </section>
+      {{ end }}
+
+      </div>
+  {{ end }}
 {{ end }}

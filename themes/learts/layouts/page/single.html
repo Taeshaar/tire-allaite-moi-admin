@@ -3,16 +3,15 @@
 {{ end }}
 
 {{ define "main" }}
-  <div class="flex-l mt2 mw8 center">
-    <article class="center cf pv5 ph3 ph4-ns mw7">
-      <header>
-        <h1 class="f1">
-          {{ .Title }}
-        </h1>
-      </header>
-      <div class="nested-copy-line-height lh-copy f4 nested-links {{ $.Param "text_color" | default "mid-gray" }}">
-        {{ .Content }}
-      </div>
-    </article>
-  </div>
+    <!-- Contact Information & Map Section Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <!-- Section Title Start -->
+            <div class="section-title2 text-center">
+                {{ .Content }}
+            </div>
+            <!-- Section Title End -->
+        </div>
+    </div>
+    <!-- Contact Information & Map Section End -->
 {{ end }}
